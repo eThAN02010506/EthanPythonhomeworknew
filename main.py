@@ -3,6 +3,10 @@ import uvicorn
 
 app = FastAPI()
 
+API_KEYS = [
+    "1234567890",
+    "qwertyuiop"
+]
 
 name_list = [
     {"name": "Jacobs", "iq": 109, "in_america": "100 thousand"},
@@ -24,40 +28,35 @@ name_list = [
     {"name": "Miranda", "iq": 160, "in_america": "120 thousand"},
     {"name": "Wolf", "iq": 164, "in_america": "132 thousand"},
     {"name": "Rasmussen", "iq": 173, "in_america": "122 thousand"},
-    {"name": "Rush", "iq": 100, "in_america": "107 thousand"},
+    {"name": "Rush", "iq": 100, "in_america": "107 thousand"}
 ]
 
 @app.get("/top20-last-names")
-async def get_names():
-    for names in name_list:
-        names["name"]
+async def get_names(api_key: str):
+    if api_key in API_KEYS:
+        res = []
+        for last_name in name_list:
+            res.append(last_name['name'])
+        return res
+    return {"msg": "You do not have permission to access this resource."}
 
 @app.get("/top20-last-names/{last_name}")
-async def get_stats(last_name: str):
-    for name_stats in name_list:
-        if last_name.lower() == name_stats["name"]:
-            return name_stats
-    return {"msg": "Name not found"}
+async def get_stats(last_name: str, api_key: str):
+    print(api_key)
+    if api_key in API_KEYS:
+        for name_stats in name_list:
+            if last_name.capitalize() == name_stats["name"]:
+                return f"There are {name_stats['in_america']} people in the US with the last name of {name_stats['name']}."
+        return {"msg": "Name not found"}
+    return {"msg": "You do not have permission to access this resource."}
 
-
-@app.get("/top20-last-names/average_iq")
-async def get_iq(last_name: str):
-    for name_stats in name_list:
-        if last_name.lower() == name_stats["name"]:
-            return f"People in the US with the last name of {name_stats['name']} have an average iq of {name_stats['get_iq']}"
-    return {"msg": "Name not found"}
-
-
-@app.get("/documents")
-async def get_document(name: str, age: int):
-    if name and age:
-        return {"name": name, "age": age}
-    return {"message": "Got doc successfully"}
-
-
-@app.get("/secret")
-async  def get_secret():
-    return {"secret": "I actually am not Korean."}
+@app.get("/top20-last-names/{last_name}/average_iq")
+async def get_iq(last_name: str, api_key: str):
+    if api_key in API_KEYS:
+        for name_stats in name_list:
+            if last_name.capitalize() == name_stats["name"]:
+                return f"People in the US with the last name of {name_stats['name']} have an average iq of {name_stats['iq']}"
+    return {"msg": "You do not have permission to access this resource."}
 
 
 if __name__ == "__main__":
