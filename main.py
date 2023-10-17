@@ -31,7 +31,7 @@ name_list = [
     {"name": "Rush", "iq": 100, "in_america": "107 thousand"}
 ]
 
-@app.get("/top20-last-names")
+@app.get("/top20")
 async def get_names(api_key: str):
     if api_key in API_KEYS:
         res = []
@@ -40,22 +40,23 @@ async def get_names(api_key: str):
         return res
     return {"msg": "You do not have permission to access this resource."}
 
-@app.get("/top20-last-names/{last_name}")
+@app.get("/top20/{last_name}")
 async def get_stats(last_name: str, api_key: str):
     print(api_key)
     if api_key in API_KEYS:
         for name_stats in name_list:
             if last_name.capitalize() == name_stats["name"]:
-                return f"There are {name_stats['in_america']} people in the US with the last name of {name_stats['name']}."
+                return {"name": name_stats['name'], "in_america": name_stats['in_america']}
+                # return f"There are {name_stats['in_america']} people in the US with the last name of {name_stats['name']}."
         return {"msg": "Name not found"}
     return {"msg": "You do not have permission to access this resource."}
 
-@app.get("/top20-last-names/{last_name}/average_iq")
+@app.get("/top20/{last_name}/average_iq")
 async def get_iq(last_name: str, api_key: str):
     if api_key in API_KEYS:
         for name_stats in name_list:
             if last_name.capitalize() == name_stats["name"]:
-                return f"People in the US with the last name of {name_stats['name']} have an average iq of {name_stats['iq']}"
+                return {"name": name_stats['name'], "average_iq": name_stats['iq']}
     return {"msg": "You do not have permission to access this resource."}
 
 
