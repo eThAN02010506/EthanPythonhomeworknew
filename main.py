@@ -1,14 +1,13 @@
 from fastapi import FastAPI
 import uvicorn
 
-from routers.academic import academic_router
-from routers.last_names import last_name_router
+from routers import academic, last_name
 
 app = FastAPI()
 
-app.include_router(academic_router, prefix="/academics")
+app.include_router(academic.academic_router, prefix="/academics")
 
-app.include_router(last_name_router, prefix="/last_name")
+app.include_router(last_name.last_name_router, prefix="/last_names")
 
 
 
