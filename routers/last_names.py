@@ -23,7 +23,7 @@ name_list = [
     {"name": "Miranda", "iq": 160, "in_america": "120 thousand"},
     {"name": "Wolf", "iq": 164, "in_america": "132 thousand"},
     {"name": "Rasmussen", "iq": 173, "in_america": "122 thousand"},
-    {"name": "Rush", "iq": 100, "in_america": "107 thousand"}
+    {"name": "Rush", "iq": 100, "in_america": "107 thousand", "pic": "fern.png"}
 ]
 
 API_KEYS = [
