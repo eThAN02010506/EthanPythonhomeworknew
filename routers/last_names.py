@@ -1,35 +1,39 @@
 from fastapi import APIRouter
+from pydantic import BaseModel
 
 last_name_router = APIRouter()
 
 
+class LastName(BaseModel):
+    name: str
+    iq: int
+    in_america: str
+
+
 name_list = [
-    {"name": "Jacobs", "iq": 109, "in_america": "100 thousand"},
-    {"name": "Acevedo", "iq": 110, "in_america": "120 thousand"},
-    {"name": "Mcclain", "iq": 181, "in_america": "105 thousand"},
-    {"name": "Burnett", "iq": 12, "in_america": "201 thousand"},
-    {"name": "Schitt", "iq": 112, "in_america": "190 thousand"},
-    {"name": "Villa", "iq": 105, "in_america": "110 thousand"},
-    {"name": "Jones", "iq": 390, "in_america": "1"},
-    {"name": "Wolfe", "iq": 191, "in_america": "180 thousand"},
-    {"name": "Monroe", "iq": 101, "in_america": "95 thousand"},
-    {"name": "Hopkins", "iq": 151, "in_america": "230 thousand"},
-    {"name": "Bowers", "iq": 146, "in_america": "100 thousand"},
-    {"name": "Daniels", "iq": 136, "in_america": "104 thousand"},
-    {"name": "Rivers", "iq": 90, "in_america": "114 thousand"},
-    {"name": "Weiss", "iq": 109, "in_america": "192 thousand"},
-    {"name": "Olsen", "iq": 170, "in_america": "112 thousand"},
-    {"name": "Marsh", "iq": 130, "in_america": "103 thousand"},
-    {"name": "Miranda", "iq": 160, "in_america": "120 thousand"},
-    {"name": "Wolf", "iq": 164, "in_america": "132 thousand"},
-    {"name": "Rasmussen", "iq": 173, "in_america": "122 thousand"},
-    {"name": "Rush", "iq": 100, "in_america": "107 thousand", "pic": "fern.png"}
+    LastName(name="Jacobs", iq=109, in_america="100 thousand"),
+    LastName(name="Acevedo", iq=110, in_america="120 thousand"),
+    LastName(name="Mcclain", iq=181, in_america="105 thousand"),
+    LastName(name="Burnett", iq=12, in_america="201 thousand"),
+    LastName(name="Schitt", iq=112, in_america="190 thousand"),
+    LastName(name="Villa", iq=105, in_america="110 thousand"),
+    LastName(name="Jones", iq=390, in_america="1"),
+    LastName(name="Wolfe", iq=191, in_america="180 thousand"),
+    LastName(name="Monroe", iq=101, in_america="95 thousand"),
+    LastName(name="Hopkins", iq=151, in_america="230 thousand"),
+    LastName(name="Bowers", iq=146, in_america="100 thousand"),
+    LastName(name="Daniels", iq=136, in_america="104 thousand"),
+    LastName(name="Rivers", iq=90, in_america="114 thousand"),
+    LastName(name="Weiss", iq=109, in_america="192 thousand"),
+    LastName(name="Olsen", iq=170, in_america="112 thousand"),
+    LastName(name="Marsh", iq=130, in_america="103 thousand"),
+    LastName(name="Miranda", iq=160, in_america="120 thousand"),
+    LastName(name="Wolf", iq=164, in_america="132 thousand"),
+    LastName(name="Rasmussen", iq=173, in_america="122 thousand"),
+    LastName(name="Rush", iq=100, in_america="107 thousand"),
 ]
 
-API_KEYS = [
-    "1234567890",
-    "qwertyuiop"
-]
+
 
 @last_name_router.get("/")
 async def get_names(api_key: str):
